@@ -6,18 +6,25 @@
              xmlns:local="clr-namespace:Frontend"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="AliceBlue">
+    <Grid Background="DarkSlateGray">
 
 
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border BorderThickness="1" Padding="5" BorderBrush="Black">
-            <Border BorderThickness="2" BorderBrush="Black" Padding="10">
+            <Border BorderThickness="1" Padding="5" BorderBrush="Black" Background="White">
+                <Border BorderThickness="2" BorderBrush="Black" Padding="10" Background="SeaShell">
                 <StackPanel x:Name="panel">
                     <Label HorizontalAlignment="Center" Content="Anmelden" FontSize="35"/>
 
                     <Label Content="Username" FontSize="15" FontWeight="Bold"/>
                     <Border BorderThickness="2" Margin="5, 0, 5, 10" BorderBrush="Black" CornerRadius="5">
-                        <TextBlock FontSize="15" Height="22" HorizontalAlignment="Left" Width="250" Text="First Name:" VerticalAlignment="Top" />
+                            <TextBox FontSize="15" Height="22" HorizontalAlignment="Left" Width="250" Text="First Name:" VerticalAlignment="Top" Background="Transparent">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                        
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
                     </Border>
 
                     <Label Content="Password" FontSize="15" FontWeight="Bold"/>
@@ -28,7 +35,8 @@
                                     <Style.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="10" />
-                                        </Style>
+                                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                            </Style>
                                     </Style.Resources>
                                     <Setter Property="Template">
                                         <Setter.Value>
@@ -70,9 +78,9 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
-                        <Button Content="Register" Margin="5" FontWeight="Bold"/>
-                        <Button Grid.Column="1" Content="Login" Margin="5" FontWeight="Bold"/>
+
+                            <Button Content="Register" Margin="5" FontWeight="Bold" Background="SandyBrown"/>
+                            <Button Grid.Column="1" Content="Login" Margin="5" FontWeight="Bold" Background="SandyBrown"/>
                     </Grid>
                 </StackPanel>
             </Border>
