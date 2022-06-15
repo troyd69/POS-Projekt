@@ -9,7 +9,7 @@
     <Grid Background="DarkSlateGray">
 
 
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border BorderThickness="1" Padding="5" BorderBrush="Black" Background="White">
                 <Border BorderThickness="2" BorderBrush="Black" Padding="10" Background="SeaShell">
                     <StackPanel x:Name="panel">
@@ -17,7 +17,13 @@
 
                         <Label Content="Username" FontSize="15" FontWeight="Bold"/>
                         <Border BorderThickness="2" Margin="5, 0, 5, 10" BorderBrush="Black" CornerRadius="5">
-                            <TextBlock FontSize="15" Height="22" HorizontalAlignment="Left" Width="250" Text="First Name:" VerticalAlignment="Top" />
+                            <TextBox FontSize="15" Height="22" HorizontalAlignment="Left" BorderBrush="Transparent" Width="250" Text="First Name:" VerticalAlignment="Top" Background="Transparent">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
                         </Border>
 
                         <Label Content="Password" FontSize="15" FontWeight="Bold"/>

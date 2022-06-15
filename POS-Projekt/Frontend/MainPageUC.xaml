@@ -6,37 +6,60 @@
              xmlns:local="clr-namespace:Frontend"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="AliceBlue">
+    <Grid Background="DarkSlateGray">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="Music Player" FontSize="30"/>
-            <Label Content="Pro" Foreground="Red" FontSize="25" FontStyle="Italic"/>
-        </StackPanel>
 
 
-        <Grid Grid.Row="1">
+        <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ListBox Margin="10">
-                
-            </ListBox>
 
-            <ListBox Margin="10" Grid.Column="1">
-                
-            </ListBox>
+
+            <Border Margin="30, 10, 10, 10" BorderBrush="Black" BorderThickness="0.5">
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Background="SeaShell">
+                        <TextBlock Text="Songs" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </Grid>
+
+                    <ListBox Grid.Row="1" Background="SeaShell"/>
+                </Grid>
+            </Border>
+
+            <Border Margin="10, 10, 30, 10" BorderBrush="Black" BorderThickness="0.5" Grid.Column="1">
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Background="SeaShell">
+                        <TextBlock Text="Playlists" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </Grid>
+
+                    <ListBox Grid.Row="1" Background="SeaShell"/>
+                </Grid>
+            </Border>
+
         </Grid>
 
 
-        <Grid Grid.Row="2">
+        <Border Grid.Row="1" Background="SeaShell" CornerRadius="20" BorderBrush="Black" BorderThickness="1" Margin="5, 5, 5, 5">
+        <Grid >
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -46,24 +69,28 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="1" >
-                <Image Source="imgs/previous.png" Width="40"/>
+            
+            <Button Grid.Column="1" Margin="5, 10, 5, 10" Background="SandyBrown">
+                    <Image Width="30">
+                        <Image.Source>
+                            <BitmapImage UriSource="imgs/previous.png"/>
+                        </Image.Source>
+                    </Image>
+                </Button>
+                <Button Grid.Column="2" Margin="5, 10, 5, 10" Background="SandyBrown">
+                    <Image Source="Pack://application:,,,/imgs/pause.png"  Width="30"/>
             </Button>
-            <Button Grid.Column="2">
-                <Image Source="imgs/pause.png" Width="40"/>
-            </Button>
-            <Button Grid.Column="3">
-                <Image Source="imgs/next.png" Width="40"/>
+                <Button Grid.Column="3" Margin="5, 10, 5, 10" Background="SandyBrown">
+                <Image Source="/Frontend;component/imgs/next.png" Width="30"/>
             </Button>
 
-            <Border BorderBrush="{x:Null}" Height="60" Margin="5,0,5,0">
-                <TextBlock TextWrapping="Wrap" Text="Ali ich liebve nigga nigga nigga nigga" TextAlignment="Left" FontWeight="Bold" FontSize="15"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            </Border>
 
-            <Border Grid.Column="4" BorderBrush="{x:Null}" Height="60" Margin="5,0,5,0">
-                <TextBlock TextWrapping="Wrap" Text="Ali ich liebve nigga nigga " TextAlignment="Right" FontWeight="Bold" FontSize="15"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            </Border>
+                <TextBlock TextWrapping="Wrap" Text="Starshopping" TextAlignment="Left" Margin="5, 0, 0, 0" FontWeight="Bold" FontSize="12.5"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Column="4" TextWrapping="Wrap" Text="Lil Peep" TextAlignment="Left" FontWeight="Bold" FontSize="12.5" Margin="0, 0, 5, 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
+        </Border>
+
 
 
     </Grid>
