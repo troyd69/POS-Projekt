@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace POS_Projekt.Model
+namespace Backend.Model
 {
     public partial class MusicDBContext : DbContext
     {

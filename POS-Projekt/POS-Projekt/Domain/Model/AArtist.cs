@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace POS_Projekt.Model
+namespace Backend.Model
 {
-    public partial class CCategory
+    public partial class AArtist
     {
-        public CCategory()
+        public AArtist()
         {
             SSongs = new HashSet<SSong>();
         }
 
-        public string CId { get; set; } = null!;
-        public string CName { get; set; } = null!;
+        public int AId { get; set; }
+        public string AName { get; set; } = null!;
 
         public virtual ICollection<SSong> SSongs { get; set; }
     }

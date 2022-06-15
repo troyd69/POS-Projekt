@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace POS_Projekt.Model
+namespace Backend.Model
 {
     public partial class SSong
     {
