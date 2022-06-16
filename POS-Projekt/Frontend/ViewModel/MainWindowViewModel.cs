@@ -1,5 +1,6 @@
 ﻿using Backend.Domain.Interfaces;
 using Backend.Model;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -62,7 +63,15 @@ namespace Frontend.ViewModel
 
 		private SSong selAddSongsCreatePL;
 
-		private SSong playedSong;
+		private string songNameTB;
+
+		private CCategory selCategory;
+
+		private List<CCategory> allCategories;
+
+		private string fileName;
+
+
 
 
 
@@ -101,6 +110,15 @@ namespace Frontend.ViewModel
 
 		public ICommand EditPlayListBTN { get; }
 
+		public ICommand MainPageAddNewSongMenuItem { get; }
+
+		public ICommand HomeBtn { get; }
+
+		public ICommand LogOutBtn { get; }
+
+		public ICommand SelectFile { get; }
+
+
 
 
 
@@ -117,6 +135,8 @@ namespace Frontend.ViewModel
 
 			ActiveMenu = "Anmelden";
 			SongsVonPlaylist = _songService.ListSongs();
+			AllCategories = _categoryService.ListCategorys();
+			SelCategory = AllCategories[0];
 
 
 
@@ -273,6 +293,51 @@ namespace Frontend.ViewModel
 			   },
 			   () => ActiveMenu != "Anmelden");
 
+			MainPageAddNewSongMenuItem = new RelayCommand(
+			   () =>
+			   {
+
+				   ActiveMenu = "AddSong";
+			   },
+			   () => ActiveMenu != "Anmelden");
+
+			HomeBtn = new RelayCommand(
+			   () =>
+			   {
+
+				   ActiveMenu = "MainPage";
+			   },
+			   () => ActiveMenu != "Anmelden");
+
+			LogOutBtn = new RelayCommand(
+			   () =>
+			   {
+
+				   ActiveMenu = "Anmelden";
+			   },
+			   () => ActiveMenu != "Anmelden");
+
+
+			SelectFile = new RelayCommand(
+			   () =>
+			   {
+
+				   var dialog = new Microsoft.Win32.OpenFileDialog();
+				   dialog.FileName = "Document"; // Default file name
+				   dialog.DefaultExt = ".txt"; // Default file extension
+				   dialog.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+
+				   // Show open file dialog box
+				   bool? result = dialog.ShowDialog();
+
+				   // Process open file dialog box results
+				   if (result == true)
+				   {
+					   // Open document
+					   string filename = dialog.FileName;
+				   }
+			   },
+			   () => true);
 		}
 
 		string _activeMenu = "Anmelden";
@@ -362,10 +427,13 @@ namespace Frontend.ViewModel
 			get => selSong;
 			set
 			{
-				selSong = value;
-				if (selSong != null)
-					playedSong = value;
-				player.Open(new Uri(CurrentDirectory + $@"\music\{playedSong.SPath}.mp3"));
+				if (value != null)
+                {
+
+					selSong = value;
+					player.Open(new Uri(CurrentDirectory + $@"\music\{selSong.SPath}.mp3"));
+				}
+					
 				player.Play();
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelSong)));
 			}
@@ -420,6 +488,48 @@ namespace Frontend.ViewModel
 			}
 		}
 
+		public List<AArtist> AllArtists
+		{
+			get =>  _artistService.listArtists();
+		}
+        public string SongNameTB
+		{
+			get => songNameTB;
+			set
+			{
+				songNameTB = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SongNameTB)));
+			}
+		}
 
-	}
+        public CCategory SelCategory
+		{
+			get => selCategory;
+			set
+			{
+				selCategory = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelCategory)));
+			}
+		}
+
+        public List<CCategory> AllCategories
+		{
+			get => allCategories;
+			set
+			{
+				allCategories = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllCategories)));
+			}
+		}
+
+        public string FileName
+		{
+			get => fileName;
+			set
+			{
+				fileName = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FileName)));
+			}
+		}
+    }
 }

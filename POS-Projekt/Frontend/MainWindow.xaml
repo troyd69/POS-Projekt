@@ -21,17 +21,21 @@
         </Grid.RowDefinitions>
 
         <Menu Background="SeaShell">
+
+            <MenuItem Header="Home" FontWeight="Bold" Command="{Binding HomeBtn}"/>
+
             <MenuItem Header="User" FontWeight="Bold" Margin="0, 0, 10, 0">
                 <MenuItem Header="Create Playlist" Command="{Binding CreatePlayListBTN}" />
                 <MenuItem Header="Edit Playlist" Command="{Binding EditPlayListBTN}"/>
                 <Separator/>
-                <MenuItem Header="Log Out" />
+                <MenuItem Header="Log Out" Command="{Binding LogOutBtn}"/>
             </MenuItem>
 
             <MenuItem Header="Song" FontWeight="Bold">
-                <MenuItem Header="Show Songs" />
-                <MenuItem Header="Add Song" />
+                <!--<MenuItem Header="Show Songs" />-->
+                <MenuItem Header="Add Song" Command="{Binding MainPageAddNewSongMenuItem}" />
             </MenuItem>
+           
         </Menu>
 
 
@@ -72,7 +76,10 @@
         <local:CreatePlaylistUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv},
             Path=ActiveMenu, ConverterParameter=CreatePlayList}"/>
 
- 
+        <local:AddSongUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv},
+            Path=ActiveMenu, ConverterParameter=AddSong}"/>
+
+
 
 
     </Grid>

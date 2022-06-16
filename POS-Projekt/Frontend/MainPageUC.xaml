@@ -85,9 +85,9 @@
             </Button>
 
 
-                <TextBlock TextWrapping="Wrap" Text="Starshopping" TextAlignment="Left" Margin="5, 0, 0, 0" FontWeight="Bold" FontSize="12.5"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding SelSong.STitel}" TextAlignment="Left" Margin="5, 0, 0, 0" FontWeight="Bold" FontSize="12.5"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                <TextBlock Grid.Column="4" TextWrapping="Wrap" Text="Lil Peep" TextAlignment="Left" FontWeight="Bold" FontSize="12.5" Margin="0, 0, 5, 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="4" TextWrapping="Wrap" Text="{Binding SelSong.SAArtistNavigation.AName}" TextAlignment="Left" FontWeight="Bold" FontSize="12.5" Margin="0, 0, 5, 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </Border>
 

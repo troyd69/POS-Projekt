@@ -1,5 +1,6 @@
 ﻿using Backend.Domain.Interfaces;
 using Backend.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,14 @@ namespace Backend.Services
 
 		public List<SSong> ListSongs()
 		{
-			List<SSong> list = _dbContext.SSongs.ToList();
+			List<SSong> list = _dbContext.SSongs.Include(x => x.SAArtistNavigation).ToList();
 			return list;
 		}
 
 		public List<SSong> GetSongsfromPlaylist(PPlaylist playlist)
 		{
 
-			return (from song in _dbContext.SSongs
+			return (from song in _dbContext.SSongs.Include(x => x.SAArtistNavigation)
 					from songPlaylist in song.IPPlaylists
 					where songPlaylist.Equals(playlist)
 				select song).ToList();
