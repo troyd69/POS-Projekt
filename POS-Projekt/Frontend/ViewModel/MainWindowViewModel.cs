@@ -37,6 +37,12 @@ namespace Frontend.ViewModel
 
 		private DateOnly registrierenDate;
 
+		private List<SSong> songsVonPlaylist;
+
+		private List<PPlaylist> playlistsVonUser;
+
+		private PPlaylist selPlaylist;
+
 
 
 
@@ -53,6 +59,8 @@ namespace Frontend.ViewModel
 
 		public ICommand RegistrierenAnmeldenBtn { get; }
 
+		public ICommand MainPageAlleSongsBtn { get; }
+
 		//-------------
 
 		public MainWindowViewModel(ISongService songService, ICategoryService categoryService, IPlaylistService playlistService, IArtistService artistService, IUserService userService)
@@ -64,12 +72,9 @@ namespace Frontend.ViewModel
 			_userService = userService;
 
 			ActiveMenu = "Anmelden";
+			SongsVonPlaylist = _songService.ListSongs();
 
 
-			Environment.CurrentDirectory = Environment.GetEnvironmentVariable("windir");
-			DirectoryInfo info = new DirectoryInfo(".");
-
-			Trace.WriteLine("Directory Info:   " + info.FullName);
 
 
 			//_songService = songService;
@@ -86,13 +91,14 @@ namespace Frontend.ViewModel
 				   var passwordbox = param as PasswordBox;
 				   var password = passwordbox.Password;
 
-			   UUser temp = _userService.Anmelden(anmeldenUsernameTB, password);
+				   UUser temp = _userService.Anmelden(anmeldenUsernameTB, password);
 
-			   if (temp == null)
-				return;
+				   if (temp == null)
+					   return;
 
-			   SelUser = temp;
-			   ActiveMenu = "MainPage";
+				   SelUser = temp;
+				   PlaylistsVonUser = _playlistService.PlayListvonUser(SelUser.UId);
+				   ActiveMenu = "MainPage";
 			   },
 			   (param) => !(String.IsNullOrEmpty(anmeldenUsernameTB)));
 
@@ -124,10 +130,20 @@ namespace Frontend.ViewModel
 					   return;
 
 				   SelUser = temp;
+				   PlaylistsVonUser = _playlistService.PlayListvonUser(SelUser.UId);
 
 				   ActiveMenu = "MainPage";
 			   },
 			   (param) => !(String.IsNullOrEmpty(RegistrierenUsernameTB)));
+
+			MainPageAlleSongsBtn = new RelayCommand(
+			   () =>
+			   {
+
+				   SongsVonPlaylist = _songService.ListSongs();
+			   },
+			   () => true);
+
 
 
 		}
@@ -164,7 +180,7 @@ namespace Frontend.ViewModel
 			}
 		}
 
-        public string RegistrierenUsernameTB
+		public string RegistrierenUsernameTB
 		{
 			get => registrierenUsernameTB;
 			set
@@ -173,13 +189,43 @@ namespace Frontend.ViewModel
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RegistrierenUsernameTB)));
 			}
 		}
-        public DateOnly RegistrierenDate
+		public DateOnly RegistrierenDate
 		{
 			get => registrierenDate;
 			set
 			{
 				registrierenDate = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RegistrierenDate)));
+			}
+		}
+
+		public List<SSong> SongsVonPlaylist
+		{
+			get => songsVonPlaylist;
+			set
+			{
+				songsVonPlaylist = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SongsVonPlaylist)));
+			}
+		}
+		public List<PPlaylist> PlaylistsVonUser
+		{
+			get => playlistsVonUser;
+			set
+			{
+				playlistsVonUser = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlaylistsVonUser)));
+			}
+		}
+
+        public PPlaylist SelPlaylist
+		{
+			get => selPlaylist;
+			set
+			{
+				selPlaylist = value;
+				SongsVonPlaylist = _songService.GetSongsfromPlaylist(SelPlaylist);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelPlaylist)));
 			}
 		}
     }

@@ -17,5 +17,12 @@ namespace Backend.Model
         public virtual UUser? PUUserNavigation { get; set; }
 
         public virtual ICollection<SSong> ISSongs { get; set; }
+
+
+        public override string ToString()
+        {
+            return PName;
+        }
     }
+
 }

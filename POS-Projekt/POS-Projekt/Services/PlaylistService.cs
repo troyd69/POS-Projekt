@@ -1,7 +1,9 @@
 ﻿using Backend.Domain.Interfaces;
 using Backend.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,9 +50,10 @@ namespace Backend.Services
 
 		public List<PPlaylist> PlayListvonUser(int user)
 		{
-			List<PPlaylist> p = (List<PPlaylist>)(from a in _dbContext.PPlaylists
-												  where a.PUUser == user
-												  select a);
+			List<PPlaylist> p = (List<PPlaylist>)(from a in _dbContext.PPlaylists.Include(x => x.PUUserNavigation)
+												  where a.PUUserNavigation.UId == user
+												  select a).ToList();
+
 			return p;
 		}
 	}

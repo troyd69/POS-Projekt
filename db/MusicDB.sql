@@ -1,5 +1,5 @@
 -- MySQL Workbench Forward Engineering
-DROP DATABASE musicdb;
+DROP DATABASE if exists musicdb;
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -133,9 +133,9 @@ insert into c_category values
 ('CC', 'Classical');
 
 insert into u_user values
-(null, 'Ali', '1234', 2005-06-26),
-(null, 'Nikii', '1234', 2005-02-12),
-(null, 'Mathias', '1234', 2005-08-10);
+(null, 'Ali', '1234', '2005-06-26'),
+(null, 'Nikii', '1234', '2005-02-12'),
+(null, 'Mathias', '1234', '2005-08-10');
 
 insert into s_song values
 (null, 'Star Shopping', 2, '/', '00:02:22', 'HP'),
@@ -145,7 +145,6 @@ insert into s_song values
 (null, 'goosebumps', 3, '/////', '00:04:03', 'HP');
 
 insert into p_playlist values
-(null, 'Alle Songs', null),
 (null, 'Nikis Playlist', 2),
 (null, 'Mathias Playlist', 3),
 (null, 'Alis Playlist', 1);
@@ -159,3 +158,6 @@ insert into i_includes values
 (2, 3),
 (2, 4),
 (2, 5);
+
+select *
+from u_user;

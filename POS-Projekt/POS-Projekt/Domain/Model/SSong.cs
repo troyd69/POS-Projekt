@@ -21,5 +21,10 @@ namespace Backend.Model
         public virtual CCategory? SCCategoryNavigation { get; set; }
 
         public virtual ICollection<PPlaylist> IPPlaylists { get; set; }
+
+        public override string ToString()
+        {
+            return $"{STitel} - ";
+        }
     }
 }

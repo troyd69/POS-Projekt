@@ -29,13 +29,16 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
 
                     <Grid Background="SeaShell">
                         <TextBlock Text="Playlists" FontWeight="Bold" HorizontalAlignment="Center"/>
                     </Grid>
 
-                    <ListBox Grid.Row="1" Background="SeaShell"/>
+                    <ListBox Grid.Row="1" Background="SeaShell" ItemsSource="{Binding PlaylistsVonUser}" SelectedItem="{Binding SelPlaylist}"/>
+
+                    <Button Grid.Row="2" Content="All Songs" Background="SandyBrown" Command="{Binding MainPageAlleSongsBtn}"/>
                 </Grid>
             </Border>
 
@@ -51,7 +54,7 @@
                         <TextBlock Text="Songs" FontWeight="Bold" HorizontalAlignment="Center"/>
                     </Grid>
 
-                    <ListBox Grid.Row="1" Background="SeaShell"/>
+                    <ListBox Grid.Row="1" Background="SeaShell" ItemsSource="{Binding SongsVonPlaylist}"/>
                 </Grid>
             </Border>
 
