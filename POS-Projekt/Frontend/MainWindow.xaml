@@ -22,7 +22,7 @@
 
         <Menu Background="SeaShell">
             <MenuItem Header="User" FontWeight="Bold" Margin="0, 0, 10, 0">
-                <MenuItem Header="Create Playlist" />
+                <MenuItem Header="Create Playlist" Command="{Binding CreatePlayListBTN}" />
                 <MenuItem Header="Edit Playlist" />
                 <Separator/>
                 <MenuItem Header="Log Out" />
@@ -68,6 +68,9 @@
 
         <local:RegistrierenUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv}, 
             Path=ActiveMenu, ConverterParameter=Registrieren}"/>
+
+        <local:CreatePlaylistUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv},
+            Path=ActiveMenu, ConverterParameter=CreatePlayList}"/>
 
 
     </Grid>

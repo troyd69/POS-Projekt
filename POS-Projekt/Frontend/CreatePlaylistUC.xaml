@@ -31,7 +31,7 @@
                         <TextBlock Text="Songs" FontWeight="Bold" HorizontalAlignment="Center"/>
                     </Grid>
 
-                    <ListBox Grid.Row="1" Background="SeaShell"/>
+                    <ListBox Grid.Row="1" ItemsSource="{Binding AllSongs}" SelectedItem="{Binding SelSongAllSongsCreatePL}" Background="SeaShell"/>
 
                     <Button Grid.Row="2" Content="Add Song" Background="SandyBrown"/>
                 </Grid>
@@ -45,7 +45,7 @@
 
                             <Label Content="Name" FontSize="15" FontWeight="Bold"/>
                             <Border BorderThickness="2" Margin="5, 0, 5, 10" BorderBrush="Black" CornerRadius="5" >
-                                <TextBox FontSize="15" Height="22" HorizontalAlignment="Left" BorderBrush="Transparent" Width="390" Text="First Name:" VerticalAlignment="Top" Background="Transparent">
+                                <TextBox FontSize="15" Height="22" HorizontalAlignment="Left" BorderBrush="Transparent" Width="390" Text="{Binding SelNameCreatePL}" VerticalAlignment="Top" Background="Transparent">
                                     <TextBox.Resources>
                                         <Style TargetType="{x:Type Border}">
                                             <Setter Property="CornerRadius" Value="4"/>

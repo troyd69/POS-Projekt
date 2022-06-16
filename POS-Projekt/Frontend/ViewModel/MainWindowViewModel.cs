@@ -27,7 +27,11 @@ namespace Frontend.ViewModel
 		private readonly IArtistService _artistService = null!;
 		private readonly IUserService _userService = null!;
 
-		private MediaPlayer player;
+		string CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+
+		MediaPlayer player = new MediaPlayer();
+
 
 		private UUser selUser;
 
@@ -42,6 +46,16 @@ namespace Frontend.ViewModel
 		private List<PPlaylist> playlistsVonUser;
 
 		private PPlaylist selPlaylist;
+
+		private SSong selSong;
+
+		private bool isPlaying;
+
+		private List<SSong> allSongs;
+
+		private string selNameCreatePL;
+
+		private SSong selSongAllSongsCreatePL;
 
 
 
@@ -61,6 +75,16 @@ namespace Frontend.ViewModel
 
 		public ICommand MainPageAlleSongsBtn { get; }
 
+		public ICommand PausePlayBtn { get; }
+
+		public ICommand CreatePlayListBTN { get; }
+
+		public ICommand AddSongCreatePlayList { get; }
+
+
+
+
+
 		//-------------
 
 		public MainWindowViewModel(ISongService songService, ICategoryService categoryService, IPlaylistService playlistService, IArtistService artistService, IUserService userService)
@@ -76,16 +100,14 @@ namespace Frontend.ViewModel
 
 
 
-
-			//_songService = songService;
-			//var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-			//Console.WriteLine(CurrentDirectory);
-			//player = new MediaPlayer();
-			//player.Open(new Uri(CurrentDirectory + @"\music\StarShopping.mp3"));
-			//player.Play();
+            //var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //Console.WriteLine(CurrentDirectory);
+            //player = new MediaPlayer();
+            //player.Open(new Uri(CurrentDirectory + @"\music\StarShopping.mp3"));
+            //player.Play();
 
 
-			AnmeldenBtn = new RelayCommand(
+            AnmeldenBtn = new RelayCommand(
 			   (param) =>
 			   {
 				   var passwordbox = param as PasswordBox;
@@ -141,10 +163,35 @@ namespace Frontend.ViewModel
 			   {
 
 				   SongsVonPlaylist = _songService.ListSongs();
+				   SelPlaylist = null;
 			   },
 			   () => true);
 
+			PausePlayBtn = new RelayCommand(
+			   () =>
+			   {
 
+				   if (isPlaying)
+					   player.Pause();
+				   else
+					   player.Play();
+			   },
+			   () => true);
+
+			CreatePlayListBTN = new RelayCommand(
+			  () =>
+			  {
+
+				  ActiveMenu = "CreatePlayList";
+			  },
+			  () => ActiveMenu != "Anmelden");
+
+			AddSongCreatePlayList = new RelayCommand(
+			   () =>
+			   {
+
+			   },
+			   () => selSongAllSongsCreatePL != null);
 
 		}
 
@@ -224,9 +271,52 @@ namespace Frontend.ViewModel
 			set
 			{
 				selPlaylist = value;
-				SongsVonPlaylist = _songService.GetSongsfromPlaylist(SelPlaylist);
+				if(selPlaylist != null)
+					SongsVonPlaylist = _songService.GetSongsfromPlaylist(SelPlaylist);
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelPlaylist)));
 			}
 		}
-    }
+
+        public SSong SelSong
+		{
+			get => selSong;
+			set
+			{
+				selSong = value;
+				player.Open(new Uri(CurrentDirectory + @"\music\StarShopping.mp3"));
+				player.Play();
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelSong)));
+			}
+		}
+
+		public List<SSong> AllSongs
+		{
+			get => allSongs;
+			set
+			{
+				allSongs = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllSongs)));
+			}
+		}
+
+		public string SelNameCreatePL
+		{
+			get => selNameCreatePL;
+			set
+			{
+				selNameCreatePL = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelNameCreatePL)));
+			}
+		}
+
+		public SSong SelSongAllSongsCreatePL
+		{
+			get => selSongAllSongsCreatePL;
+			set
+			{
+				selSongAllSongsCreatePL = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelSongAllSongsCreatePL)));
+			}
+		}
+	}
 }

@@ -26,11 +26,11 @@ namespace Backend.Services
 
 		public List<SSong> GetSongsfromPlaylist(PPlaylist playlist)
 		{
-			List<SSong> songs = null;
-			(from a in _dbContext.PPlaylists
-			 where a.Equals(playlist)
-			 select a).ToList().ForEach(x=>songs = new(x.ISSongs));
-			return songs;
+
+			return (from song in _dbContext.SSongs
+					from songPlaylist in song.IPPlaylists
+					where songPlaylist.Equals(playlist)
+				select song).ToList();
 		}
 
 		public SSong AddSong(string titel, string cat, string pfad)
