@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Backend.Domain.Interfaces
 {
-	public interface ISongService
+	public interface IUSerService
 	{
-		List<SSong> ListSongs();
-		List<SSong> GetSongsfromPlaylist(PPlaylist playlist);
-		SSong AddSong(string titel, string cat, string pfad);
+		UUser Anmelden(string user, string pw);
+		UUser Registrieren(string user, string password, DateOnly date);
 	}
 }

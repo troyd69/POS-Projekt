@@ -23,5 +23,32 @@ namespace Backend.Services
 			List<SSong> list = _dbContext.SSongs.ToList();
 			return list;
 		}
+
+		public List<SSong> GetSongsfromPlaylist(PPlaylist playlist)
+		{
+			List<SSong> songs = null;
+			(from a in _dbContext.PPlaylists
+			 where a.Equals(playlist)
+			 select a).ToList().ForEach(x=>songs = new(x.ISSongs));
+			return songs;
+		}
+
+		public SSong AddSong(string titel, string cat, string pfad)
+		{
+			int songID = (from a in _dbContext.SSongs
+						  select a).ToList().Max(x => x.SId);
+			SSong b = null;
+			b = new();
+			b.SId = Interlocked.Increment(ref songID);
+			b.STitel = titel;
+			b.SCCategory = cat;
+			b.SPath = pfad;
+			if (!_dbContext.SSongs.Contains(b))
+				_dbContext.SSongs.Add(b);
+			else
+				b = null;
+			_dbContext.SaveChanges();
+			return b;
+		}
 	}
 }

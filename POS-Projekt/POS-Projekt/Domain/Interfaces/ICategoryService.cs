@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Backend.Domain.Interfaces
 {
-	public interface ISongService
+	public interface ICategoryService
 	{
-		List<SSong> ListSongs();
-		List<SSong> GetSongsfromPlaylist(PPlaylist playlist);
-		SSong AddSong(string titel, string cat, string pfad);
+		List<CCategory> ListCategorys();
 	}
 }
