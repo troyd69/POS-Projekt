@@ -64,7 +64,6 @@ namespace Frontend.ViewModel
 
 		private SSong playedSong;
 
-		private string selNameCreatePL;
 
 
 

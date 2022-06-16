@@ -139,7 +139,7 @@ insert into u_user values
 
 insert into s_song values
 (null, 'Star Shopping', 2, 'StarShopping', '00:02:22', 'HP'),
-(null, 'Crazy What Love Can Do', 1, 'David Guetta  Becky Hill  Ella Henderson - Crazy What Love Can Do (Lyric Video)', '00:02:49', 'DE'),
+(null, 'Crazy What Love Can Do', 1, 'Crazy What Love Can Do (Lyric Video)', '00:02:49', 'DE'),
 (null, 'SICKO MODE', 3, 'Travis Scott - SICKO MODE (Lyrics) ft. Drake', '00:05:12', 'HP'),
 (null, 'Wants and Needs (Feat. Lil Baby)', 4, 'Drake - Wants and Needs (Lyrics) ft. Lil Baby', '00:03:12', 'HP'),
 (null, 'goosebumps', 3, 'goosebumps', '00:04:03', 'HP');
