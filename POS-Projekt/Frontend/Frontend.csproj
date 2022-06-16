@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+
+  
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -13,6 +15,12 @@
     <None Remove="imgs\previous.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\POS-Projekt\Backend.csproj" />
+  </ItemGroup>
+
+
+  
   <ItemGroup>
     <Resource Include="imgs\next.png" />
     <Resource Include="imgs\pause.png" />

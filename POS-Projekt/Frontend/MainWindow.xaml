@@ -51,6 +51,7 @@
 
         </StackPanel>
 
+        
         <local:MainPageUC Grid.Row="2"/>
 
     </Grid>
