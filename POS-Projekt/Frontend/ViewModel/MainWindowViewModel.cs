@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,17 +37,11 @@ namespace Frontend.ViewModel
 
 		public MainWindowViewModel(ISongService songService)
 		{
-
-			Environment.CurrentDirectory = Environment.GetEnvironmentVariable("windir");
-			DirectoryInfo info = new DirectoryInfo(".");
-
-			Trace.WriteLine("Directory Info:   " + info.FullName);
 			_songService = songService;
-
-			Uri dings = new("ms - appx:///music/StarShopping.mp3");
-			Trace.WriteLine(dings.AbsolutePath);
+			var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			Console.WriteLine(CurrentDirectory);
 			player = new MediaPlayer();
-			player.Open(new Uri(@"music/StarShopping.mp3", UriKind.Relative));
+			player.Open(new Uri(CurrentDirectory + @"\music\StarShopping.mp3"));
 			player.Play();
 		}
 
