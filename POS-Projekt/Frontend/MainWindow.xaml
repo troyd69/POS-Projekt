@@ -52,7 +52,7 @@
         </StackPanel>
 
         
-        <local:MainPageUC Grid.Row="2"/>
+        <local:AddSongUC Grid.Row="2"/>
 
     </Grid>
 </Window>

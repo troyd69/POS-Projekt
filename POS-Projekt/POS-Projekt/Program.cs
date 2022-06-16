@@ -21,6 +21,9 @@ namespace Backend
             // where playlist.PId == 1
             // select playlist.ISSongs).ToList().ForEach(x => x.ToList().ForEach(y => Console.WriteLine(y.STitel)));
 
+            
+
+
 
 
         }
