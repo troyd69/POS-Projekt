@@ -15,17 +15,13 @@ namespace Frontend.ViewModel
 	{
 		public event PropertyChangedEventHandler? PropertyChanged;
 		private readonly ISongService _songService = null!;
-		MediaPlayer player;
+		private MediaPlayer player;
 
 		public MainWindowViewModel(ISongService songService)
 		{ 
 			_songService = songService;
 			player = new MediaPlayer();
-			//player.MediaFailed += (o, args) =>
-			//{
-			//	MessageBox.Show(args.ToString());
-			//};
-			player.Open(new Uri("C://Users/nikol/Downloads/Lil Peep - Star Shopping(Removed At 1.9 Mil Views).mp3", UriKind.RelativeOrAbsolute));
+			player.Open(new Uri("C:/Users/admin/Documents/Schule/3.Klasse/POS/POS-Projekt/POS-Projekt/Frontend/music/StarShopping.mp3"));
 			player.Play();
 		}
 

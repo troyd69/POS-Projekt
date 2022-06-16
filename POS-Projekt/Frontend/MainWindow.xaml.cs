@@ -25,6 +25,7 @@ namespace Frontend
     {
         public MusicDBContext context = new();
         public MainWindowViewModel vm;
+
         public MainWindow()
         {
             vm = new MainWindowViewModel(
