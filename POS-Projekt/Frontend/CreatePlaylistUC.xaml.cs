@@ -18,9 +18,9 @@ namespace Frontend
     /// <summary>
     /// Interaction logic for CreatePlaylist.xaml
     /// </summary>
-    public partial class CreatePlaylist : UserControl
+    public partial class CreatePlaylistUC : UserControl
     {
-        public CreatePlaylist()
+        public CreatePlaylistUC()
         {
             InitializeComponent();
         }

@@ -52,7 +52,7 @@
         </StackPanel>
 
         
-        <local:AddSongUC Grid.Row="2"/>
+        <local:EditPlaylistUC Grid.Row="2"/>
 
     </Grid>
 </Window>
