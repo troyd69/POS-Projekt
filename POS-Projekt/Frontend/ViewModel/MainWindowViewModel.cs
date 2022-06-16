@@ -2,6 +2,7 @@
 using Backend.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -49,13 +50,23 @@ namespace Frontend.ViewModel
 
 		private SSong selSong;
 
-		private bool isPlaying;
+		private bool isPlaying = true;
 
 		private List<SSong> allSongs;
 
 		private string selNameCreatePL;
 
 		private SSong selSongAllSongsCreatePL;
+
+		private ObservableCollection<SSong> addSongsCreatePL;
+
+		private SSong selAddSongsCreatePL;
+
+		private SSong playedSong;
+
+		private string selNameCreatePL;
+
+
 
 
 
@@ -80,6 +91,16 @@ namespace Frontend.ViewModel
 		public ICommand CreatePlayListBTN { get; }
 
 		public ICommand AddSongCreatePlayList { get; }
+
+		public ICommand LetzerSong { get; }
+
+		public ICommand NaechsterSong { get; }
+
+		public ICommand AddSongCreatePlayListRemoveBtn { get; }
+
+		public ICommand CreatePlayListDBBtn { get; }
+
+		public ICommand EditPlayListBTN { get; }
 
 
 
@@ -175,13 +196,45 @@ namespace Frontend.ViewModel
 					   player.Pause();
 				   else
 					   player.Play();
+
+				   isPlaying = !isPlaying;
 			   },
-			   () => true);
+			   () => SelSong != null);
+
+			LetzerSong = new RelayCommand(
+			   () =>
+			   {
+				   int index = SongsVonPlaylist.IndexOf(SelSong);
+
+				   Trace.WriteLine("dings " +  SongsVonPlaylist.IndexOf(SelSong));
+
+
+				   if (index > 0)
+					   SelSong = SongsVonPlaylist[--index];
+				   else
+					   SelSong = SongsVonPlaylist[SongsVonPlaylist.Count - 1];
+
+				   
+			   },
+			   () => SelSong != null);
+
+			NaechsterSong = new RelayCommand(
+			   () =>
+			   {
+				   int index = SongsVonPlaylist.IndexOf(SelSong);
+
+				   if (index < (SongsVonPlaylist.Count - 1))
+					   SelSong = SongsVonPlaylist[++index];
+				   else
+					   SelSong = SongsVonPlaylist[0];
+			   },
+			   () => SelSong != null);
 
 			CreatePlayListBTN = new RelayCommand(
 			  () =>
 			  {
-
+				  AllSongs = _songService.ListSongs();//-----------------------------------------------------------
+				  AddSongsCreatePL = new();
 				  ActiveMenu = "CreatePlayList";
 			  },
 			  () => ActiveMenu != "Anmelden");
@@ -189,9 +242,37 @@ namespace Frontend.ViewModel
 			AddSongCreatePlayList = new RelayCommand(
 			   () =>
 			   {
-
+				   if (!AddSongsCreatePL.Contains(selSongAllSongsCreatePL))
+					   AddSongsCreatePL.Add(SelSongAllSongsCreatePL);
+				   PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddSongsCreatePL)));
 			   },
 			   () => selSongAllSongsCreatePL != null);
+
+			AddSongCreatePlayListRemoveBtn = new RelayCommand(
+			() =>
+			{
+				AddSongsCreatePL.Remove(SelAddSongsCreatePL);
+			},
+			() => SelAddSongsCreatePL != null);
+
+			CreatePlayListDBBtn = new RelayCommand(
+			  () =>
+			  {
+				  if (AddSongsCreatePL.Count > 0)
+					  if (SelNameCreatePL != null)
+						  _playlistService.AddPlayList(SelNameCreatePL, SelUser.UId, AddSongsCreatePL.ToList());
+				  PlaylistsVonUser = _playlistService.PlayListvonUser(SelUser.UId);
+				  ActiveMenu = "MainPage";
+			  },
+			  () => SelAddSongsCreatePL != null);
+
+			EditPlayListBTN = new RelayCommand(
+			   () =>
+			   {
+
+				   ActiveMenu = "EditPlayList";
+			   },
+			   () => ActiveMenu != "Anmelden");
 
 		}
 
@@ -283,7 +364,9 @@ namespace Frontend.ViewModel
 			set
 			{
 				selSong = value;
-				player.Open(new Uri(CurrentDirectory + @"\music\StarShopping.mp3"));
+				if (selSong != null)
+					playedSong = value;
+				player.Open(new Uri(CurrentDirectory + $@"\music\{playedSong.SPath}.mp3"));
 				player.Play();
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelSong)));
 			}
@@ -318,5 +401,26 @@ namespace Frontend.ViewModel
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelSongAllSongsCreatePL)));
 			}
 		}
+
+		public ObservableCollection<SSong> AddSongsCreatePL
+		{
+			get => addSongsCreatePL;
+			set
+			{
+				addSongsCreatePL = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddSongsCreatePL)));
+			}
+		}
+		public SSong SelAddSongsCreatePL
+		{
+			get => selAddSongsCreatePL;
+			set
+			{
+				selAddSongsCreatePL = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelAddSongsCreatePL)));
+			}
+		}
+
+
 	}
 }

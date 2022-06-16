@@ -23,14 +23,16 @@ namespace Backend.Services
 		public PPlaylist AddPlayList(string name, int user, List<SSong> songs)
 		{
 			int playlistID = (from a in _dbContext.PPlaylists
-						  select a).ToList().Max(x => x.PId);
+							  select a).ToList().Max(x => x.PId);
 			PPlaylist b = null;
 			b = new();
 			b.PId = Interlocked.Increment(ref playlistID);
 			b.PName = name;
 			b.PUUser = user;
 			b.ISSongs = songs;
-			if (!_dbContext.PPlaylists.Contains(b))
+			if (!_dbContext.PPlaylists.Contains(b) && (from a in _dbContext.PPlaylists
+													   where a.PName == b.PName
+													   select a).ToList().Count == 0)
 				_dbContext.PPlaylists.Add(b);
 			else
 				b = null;

@@ -26,5 +26,7 @@ namespace Backend.Model
         {
             return $"{STitel} - ";
         }
+
+        
     }
 }

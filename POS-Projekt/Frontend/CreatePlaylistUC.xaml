@@ -33,7 +33,7 @@
 
                     <ListBox Grid.Row="1" ItemsSource="{Binding AllSongs}" SelectedItem="{Binding SelSongAllSongsCreatePL}" Background="SeaShell"/>
 
-                    <Button Grid.Row="2" Content="Add Song" Background="SandyBrown"/>
+                    <Button Grid.Row="2" Content="Add Song" Command="{Binding AddSongCreatePlayList}" Background="SandyBrown"/>
                 </Grid>
             </Border>
 
@@ -45,7 +45,7 @@
 
                             <Label Content="Name" FontSize="15" FontWeight="Bold"/>
                             <Border BorderThickness="2" Margin="5, 0, 5, 10" BorderBrush="Black" CornerRadius="5" >
-                                <TextBox FontSize="15" Height="22" HorizontalAlignment="Left" BorderBrush="Transparent" Width="390" Text="{Binding SelNameCreatePL}" VerticalAlignment="Top" Background="Transparent">
+                                <TextBox FontSize="15" Height="22" HorizontalAlignment="Left" BorderBrush="Transparent" Width="390" Text="{Binding SelNameCreatePL}" VerticalAlignment="Top" Background="Transparent" >
                                     <TextBox.Resources>
                                         <Style TargetType="{x:Type Border}">
                                             <Setter Property="CornerRadius" Value="4"/>
@@ -56,11 +56,11 @@
 
 
                             <Label Content="Added Songs" FontSize="15" FontWeight="Bold"/>
-                            <ListBox Grid.Row="1" Background="SeaShell" Height="100" Margin="5, 0, 5, 0"/>
+                            <ListBox Grid.Row="1" Background="SeaShell" ItemsSource="{Binding Path=AddSongsCreatePL}" SelectedItem="{Binding Path=SelAddSongsCreatePL}"  Height="100" Margin="5, 0, 5, 0"/>
 
-                            <Button Grid.Row="2" Content="Remove Song" Background="SandyBrown" Margin="5, 0, 5, 0"/>
+                            <Button Grid.Row="2" Content="Remove Song" Command="{Binding AddSongCreatePlayListRemoveBtn}" Background="SandyBrown" Margin="5, 0, 5, 0"/>
 
-                            <Button Content="Create Playlist" Margin="5, 10, 5, 0" FontWeight="Bold" Height="25" Background="SandyBrown"/>
+                            <Button Content="Create Playlist" Margin="5, 10, 5, 0" Command="{Binding CreatePlayListDBBtn}" FontWeight="Bold" Height="25" Background="SandyBrown"/>
                         </StackPanel>
                     </Border>
                 </Border>
