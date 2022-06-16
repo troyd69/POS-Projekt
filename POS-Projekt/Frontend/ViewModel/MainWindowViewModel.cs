@@ -58,6 +58,7 @@ namespace Frontend.ViewModel
 		public MainWindowViewModel(ISongService songService, ICategoryService categoryService, IPlaylistService playlistService, IArtistService artistService, IUserService userService)
 		{
 			_songService = songService;
+<<<<<<< HEAD
 			_categoryService = categoryService;
 			_playlistService = playlistService;
 			_artistService = artistService;
@@ -130,6 +131,13 @@ namespace Frontend.ViewModel
 			   (param) => !(String.IsNullOrEmpty(RegistrierenUsernameTB)));
 
 
+=======
+			var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			Console.WriteLine(CurrentDirectory);
+			player = new MediaPlayer();
+			player.Open(new Uri(CurrentDirectory + @"\music\StarShopping.mp3"));
+			player.Play();
+>>>>>>> bbb6f6ce1bfe66c91a5b97a634fb4a6c0910ea81
 		}
 
 		string _activeMenu = "Anmelden";
