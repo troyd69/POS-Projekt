@@ -7,4 +7,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="imgs\next.png" />
+    <None Remove="imgs\pause.png" />
+    <None Remove="imgs\previous.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="imgs\next.png" />
+    <Resource Include="imgs\pause.png" />
+    <Resource Include="imgs\previous.png" />
+  </ItemGroup>
+
 </Project>
