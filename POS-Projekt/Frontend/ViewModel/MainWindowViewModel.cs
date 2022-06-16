@@ -57,12 +57,16 @@ namespace Frontend.ViewModel
 
 		private string selNameCreatePL;
 
+		private string selNameEditPL;
+		
 		private SSong selSongAllSongsCreatePL;
 
 		private ObservableCollection<SSong> addSongsCreatePL;
 
 		private SSong selAddSongsCreatePL;
 
+		private ObservableCollection<SSong> addSongsEditPL;
+		
 		private string songNameTB;
 
 		private CCategory selCategory;
@@ -71,7 +75,11 @@ namespace Frontend.ViewModel
 
 		private string fileName;
 
+		private SSong selAddSongsEditPL;
 
+		private SSong playedSong;
+
+		private SSong selSongAllSongsEditPL;
 
 
 
@@ -100,16 +108,21 @@ namespace Frontend.ViewModel
 
 		public ICommand AddSongCreatePlayList { get; }
 
+		public ICommand AddSongEditPlayList { get; }
+
 		public ICommand LetzerSong { get; }
 
 		public ICommand NaechsterSong { get; }
 
 		public ICommand AddSongCreatePlayListRemoveBtn { get; }
-
+		public ICommand AddSongEditPlayListRemoveBtn { get; }
+		
 		public ICommand CreatePlayListDBBtn { get; }
 
 		public ICommand EditPlayListBTN { get; }
 
+		public ICommand EditPlayListDBBtn { get; }
+		
 		public ICommand MainPageAddNewSongMenuItem { get; }
 
 		public ICommand HomeBtn { get; }
@@ -122,9 +135,7 @@ namespace Frontend.ViewModel
 
 
 
-
-		//-------------
-
+				//-------------
 		public MainWindowViewModel(ISongService songService, ICategoryService categoryService, IPlaylistService playlistService, IArtistService artistService, IUserService userService)
 		{
 			_songService = songService;
@@ -139,8 +150,7 @@ namespace Frontend.ViewModel
 			SelCategory = AllCategories[0];
 
 
-
-            //var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+			//var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             //Console.WriteLine(CurrentDirectory);
             //player = new MediaPlayer();
             //player.Open(new Uri(CurrentDirectory + @"\music\StarShopping.mp3"));
@@ -267,6 +277,15 @@ namespace Frontend.ViewModel
 			   },
 			   () => selSongAllSongsCreatePL != null);
 
+			AddSongEditPlayList = new RelayCommand(
+			   () =>
+			   {
+				   if (!AddSongsEditPL.Contains(SelSongAllSongsEditPL))
+					   AddSongsEditPL.Add(SelSongAllSongsEditPL);
+				   PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddSongsEditPL)));
+			   },
+			   () => selSongAllSongsEditPL != null); 
+			
 			AddSongCreatePlayListRemoveBtn = new RelayCommand(
 			() =>
 			{
@@ -274,6 +293,13 @@ namespace Frontend.ViewModel
 			},
 			() => SelAddSongsCreatePL != null);
 
+			AddSongEditPlayListRemoveBtn = new RelayCommand(
+			() =>
+			{
+				AddSongsEditPL.Remove(SelAddSongsEditPL);
+			},
+			() => SelAddSongsEditPL != null); 
+			
 			CreatePlayListDBBtn = new RelayCommand(
 			  () =>
 			  {
@@ -285,11 +311,27 @@ namespace Frontend.ViewModel
 			  },
 			  () => SelAddSongsCreatePL != null);
 
+			EditPlayListDBBtn = new RelayCommand(
+			  () =>
+			  {
+				  if (AddSongsEditPL.Count > 0)
+					  if (SelNameEditPL != null)
+						  _playlistService.ChangePlayList(SelNameEditPL, AddSongsEditPL.ToList(), SelPlaylist);
+				  PlaylistsVonUser = _playlistService.PlayListvonUser(SelUser.UId);
+				  ActiveMenu = "MainPage";
+			  },
+			  () => SelAddSongsEditPL != null); 
+			
 			EditPlayListBTN = new RelayCommand(
 			   () =>
 			   {
-
-				   ActiveMenu = "EditPlayList";
+				   AddSongsEditPL = new(_songService.GetSongsfromPlaylist(SelPlaylist));
+				   AllSongs = _songService.ListSongs();//-----------------------------------------------------------
+				   SelNameEditPL = SelPlaylist.PName;
+				   if (SelPlaylist != null)
+				   {
+					   ActiveMenu = "EditPlayList";
+				   }
 			   },
 			   () => ActiveMenu != "Anmelden");
 
@@ -410,19 +452,22 @@ namespace Frontend.ViewModel
 			}
 		}
 
-        public PPlaylist SelPlaylist
+		public PPlaylist SelPlaylist
 		{
 			get => selPlaylist;
 			set
 			{
 				selPlaylist = value;
-				if(selPlaylist != null)
+				if (selPlaylist != null)
+				{
 					SongsVonPlaylist = _songService.GetSongsfromPlaylist(SelPlaylist);
+					AddSongsEditPL = new(_songService.GetSongsfromPlaylist(SelPlaylist));
+				}
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelPlaylist)));
 			}
 		}
 
-        public SSong SelSong
+		public SSong SelSong
 		{
 			get => selSong;
 			set
@@ -459,6 +504,17 @@ namespace Frontend.ViewModel
 			}
 		}
 
+		public string SelNameEditPL
+		{
+			get => selNameEditPL;
+			set
+			{
+				selNameEditPL = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelNameEditPL)));
+			}
+		}
+		
+		
 		public SSong SelSongAllSongsCreatePL
 		{
 			get => selSongAllSongsCreatePL;
@@ -469,6 +525,17 @@ namespace Frontend.ViewModel
 			}
 		}
 
+		public SSong SelSongAllSongsEditPL
+		{
+			get => selSongAllSongsEditPL;
+			set
+			{
+				selSongAllSongsEditPL = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelSongAllSongsEditPL)));
+			}
+		}
+		
+		
 		public ObservableCollection<SSong> AddSongsCreatePL
 		{
 			get => addSongsCreatePL;
@@ -531,5 +598,25 @@ namespace Frontend.ViewModel
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FileName)));
 			}
 		}
-    }
+
+
+		public ObservableCollection<SSong> AddSongsEditPL
+		{
+			get => addSongsEditPL;
+			set
+			{
+				addSongsEditPL = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddSongsEditPL)));
+			}
+		}
+		public SSong SelAddSongsEditPL
+		{
+			get => selAddSongsEditPL;
+			set
+			{
+				selAddSongsEditPL = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelAddSongsEditPL)));
+			}
+		}
+	}
 }

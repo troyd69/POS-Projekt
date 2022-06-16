@@ -76,11 +76,10 @@
         <local:CreatePlaylistUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv},
             Path=ActiveMenu, ConverterParameter=CreatePlayList}"/>
 
+        <local:EditPlaylistUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv}, Path=ActiveMenu, ConverterParameter=EditPlayList}"/>
+
         <local:AddSongUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv},
             Path=ActiveMenu, ConverterParameter=AddSong}"/>
-
-
-
 
     </Grid>
 </Window>

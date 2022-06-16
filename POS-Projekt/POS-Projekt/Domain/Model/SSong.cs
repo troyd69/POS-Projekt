@@ -24,7 +24,7 @@ namespace Backend.Model
 
         public override string ToString()
         {
-            return $"{STitel} - {SAArtistNavigation.AName}";
+            return $"{STitel} - ";
         }
 
         
