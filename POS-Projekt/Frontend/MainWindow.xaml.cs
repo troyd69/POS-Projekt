@@ -29,7 +29,11 @@ namespace Frontend
         public MainWindow()
         {
             vm = new MainWindowViewModel(
-            new SongService(context));
+            new SongService(context),
+            new CategoryService(context),
+            new PlaylistService(context),
+            new ArtistService(context),
+            new UserService(context));
             DataContext = vm;
             InitializeComponent();
         }

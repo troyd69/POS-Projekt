@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Services
 {
-	public class UserService : IUSerService
+	public class UserService : IUserService
 	{
 		private readonly MusicDBContext _dbContext;
 

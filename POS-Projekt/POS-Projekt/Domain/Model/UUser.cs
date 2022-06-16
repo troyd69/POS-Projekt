@@ -16,5 +16,10 @@ namespace Backend.Model
         public DateOnly? UBirthdate { get; set; }
 
         public virtual ICollection<PPlaylist> PPlaylists { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return UUsername.Equals((obj as UUser).UUsername);
+        }
     }
 }

@@ -4,8 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend"
+        xmlns:conv="clr-namespace:spg.Frontend.Converter"
         mc:Ignorable="d"
         Title="Music Player Pro" Height="500" Width="800">
+
+    <Window.Resources>
+        <conv:VisibilityConverter x:Key="visConv"/>
+    </Window.Resources>
+
     <Grid Background="DarkSlateGray">
 
         <Grid.RowDefinitions>
@@ -50,9 +56,19 @@
             
 
         </StackPanel>
-
         
-        <local:EditPlaylistUC Grid.Row="2"/>
+        
+
+        <local:MainPageUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv}, 
+            Path=ActiveMenu, ConverterParameter=MainPage}"/>
+
+
+        <local:AnmeldenUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv}, 
+            Path=ActiveMenu, ConverterParameter=Anmelden}"/>
+
+        <local:RegistrierenUC Grid.Row="2" Visibility="{Binding Converter={StaticResource visConv}, 
+            Path=ActiveMenu, ConverterParameter=Registrieren}"/>
+
 
     </Grid>
 </Window>
