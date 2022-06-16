@@ -1,4 +1,5 @@
 -- MySQL Workbench Forward Engineering
+DROP DATABASE musicdb;
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -119,4 +120,42 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-insert into a_artist values(null, 'David Guetta'); 
+insert into a_artist values
+(null, 'David Guetta'),
+(null, 'Lil Peep'),
+(null, 'Travis Scott'),
+(null, 'Drake');
+         
+insert into c_category values
+('HP', 'Hip-Hop'),
+('PO', 'Pop'),
+('DE', 'Dance/Electronic'),
+('CC', 'Classical');
+
+insert into u_user values
+(null, 'Ali', '1234', 2005-06-26),
+(null, 'Nikii', '1234', 2005-02-12),
+(null, 'Mathias', '1234', 2005-08-10);
+
+insert into s_song values
+(null, 'Star Shopping', 2, '', '00:02:22' 'HP'),
+(null, 'Crazy What Love Can Do', 1, '', '00:02:49' 'DE'),
+(null, 'SICKO MODE', 3, '', '00:05:12' 'HP'),
+(null, 'Wants and Needs (Feat. Lil Baby)', 4, '', '00:03:12' 'HP'),
+(null, 'goosebumps', 3, '', '00:04:03' 'HP');
+
+insert into p_playlist values
+(null, 'Alle Songs', null),
+(null, 'Nikis Playlist', 2),
+(null, 'Mathias Playlist', 3),
+(null, 'Alis Playlist', 1);
+
+insert into i_includes values
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(2, 3),
+(2, 4),
+(2, 5);
