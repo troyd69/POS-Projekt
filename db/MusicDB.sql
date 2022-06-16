@@ -138,11 +138,11 @@ insert into u_user values
 (null, 'Mathias', '1234', 2005-08-10);
 
 insert into s_song values
-(null, 'Star Shopping', 2, '', '00:02:22' 'HP'),
-(null, 'Crazy What Love Can Do', 1, '', '00:02:49' 'DE'),
-(null, 'SICKO MODE', 3, '', '00:05:12' 'HP'),
-(null, 'Wants and Needs (Feat. Lil Baby)', 4, '', '00:03:12' 'HP'),
-(null, 'goosebumps', 3, '', '00:04:03' 'HP');
+(null, 'Star Shopping', 2, '/', '00:02:22', 'HP'),
+(null, 'Crazy What Love Can Do', 1, '//', '00:02:49', 'DE'),
+(null, 'SICKO MODE', 3, '///', '00:05:12', 'HP'),
+(null, 'Wants and Needs (Feat. Lil Baby)', 4, '////', '00:03:12', 'HP'),
+(null, 'goosebumps', 3, '/////', '00:04:03', 'HP');
 
 insert into p_playlist values
 (null, 'Alle Songs', null),
