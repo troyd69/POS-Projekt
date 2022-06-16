@@ -12,7 +12,7 @@ namespace Frontend.ViewModel
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler? PropertyChanged;
-		private readonly ISongService _songService = null;
+		private readonly ISongService _songService = null!;
 
 		public MainWindowViewModel(ISongService songService)
 		{ 

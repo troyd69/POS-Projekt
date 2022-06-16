@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="Frontend.ShowSongsUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Frontend"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="DarkSlateGray">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border BorderThickness="1" Padding="5" BorderBrush="Black" Background="White">
+                    <Border BorderThickness="2" BorderBrush="Black" Padding="10" Background="SeaShell">
+                        <StackPanel Width="250" x:Name="panel">
+                            <Label HorizontalAlignment="Center" Content="Filter" FontSize="30" Margin="0, 0, 0, -10"/>
+
+                            <Label Content="Max Length" FontWeight="Bold"/>
+                            <Slider/>
+                            <Label Content="Category" FontWeight="Bold"/>
+                            <ComboBox Background="SandyBrown" Height="20" />
+
+                            <Label Content="Artist"  FontWeight="Bold"/>
+                            <ListBox Background="SeaShell" Height="50"/>
+                            
+                            <Button Content="All Artists" Margin="0, 10, 0, 0" FontWeight="Bold" Background="SandyBrown"/>
+
+                        </StackPanel>
+                    </Border>
+                </Border>
+
+            </Grid>
+
+            <Border Margin="10, 10, 30, 10" BorderBrush="Black" BorderThickness="0.5" Grid.Column="1">
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Background="SeaShell">
+                        <TextBlock Text="Songs" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </Grid>
+
+                    <ListBox Grid.Row="1" Background="SeaShell"/>
+                </Grid>
+            </Border>
+
+        </Grid>
+
+
+        <Border Grid.Row="1" Background="SeaShell" CornerRadius="20" BorderBrush="Black" BorderThickness="1" Margin="5, 5, 5, 5">
+            <Grid >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Button Grid.Column="1" Margin="5, 10, 5, 10" Background="SandyBrown">
+                    <Image Source="imgs/previous.png" Width="30">
+                    </Image>
+                </Button>
+                <Button Grid.Column="2" Margin="5, 10, 5, 10" Background="SandyBrown">
+                    <Image Source="imgs/pause.png"  Width="30"/>
+                </Button>
+                <Button Grid.Column="3" Margin="5, 10, 5, 10" Background="SandyBrown">
+                    <Image Source="/imgs/next.png" Width="30"/>
+                </Button>
+
+
+                <TextBlock TextWrapping="Wrap" Text="Starshopping" TextAlignment="Left" Margin="5, 0, 0, 0" FontWeight="Bold" FontSize="12.5"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Column="4" TextWrapping="Wrap" Text="Lil Peep" TextAlignment="Left" FontWeight="Bold" FontSize="12.5" Margin="0, 0, 5, 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+
+
+    </Grid>
+</UserControl>
