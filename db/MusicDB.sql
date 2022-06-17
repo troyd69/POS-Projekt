@@ -125,7 +125,15 @@ insert into a_artist values
 (null, 'Lil Peep'),
 (null, 'Travis Scott'),
 (null, 'Drake'),
-(null, 'Dat Adam');
+(null, 'Dat Adam'),
+(null, 'Post Malone'),
+(null, 'Dua lipa'),
+(null, 'Future'),
+(null, 'Ed Sheeran'),
+(null, 'Harry Styles'),
+(null, 'Justin Bieber'),
+(null, 'Imagine Dragons'),
+(null, 'NLE Choppa');
          
 insert into c_category values
 ('HP', 'Hip-Hop'),
@@ -143,7 +151,20 @@ insert into s_song values
 (null, 'Crazy What Love Can Do', 1, 'Crazy What Love Can Do (Lyric Video)', '00:02:49', 'DE'),
 (null, 'SICKO MODE', 3, 'Travis Scott - SICKO MODE (Lyrics) ft. Drake', '00:05:12', 'HP'),
 (null, 'Wants and Needs (Feat. Lil Baby)', 4, 'Drake - Wants and Needs (Lyrics) ft. Lil Baby', '00:03:12', 'HP'),
-(null, 'goosebumps', 3, 'goosebumps', '00:04:03', 'HP');
+(null, 'Rockstar', 5, 'Post_Malone_-_rockstar_ft._21_Savage', '00:04:03', 'PO'),
+(null, 'Circles', 5, 'Post_Malone_-_Circles', '00:04:03', 'HP'),
+(null, 'One Kiss', 6, 'Calvin_Harris_Dua_Lipa_-_One_Kiss_Official_Video', '00:04:03', 'HP'),
+(null, 'Levitating', 6, 'Dua_Lipa_-_Levitating_Featuring_DaBaby_Official_Music_Video', '00:04:03', 'HP'),
+(null, 'Pushin', 7, 'Gunna_Future_-_pushin_p._feat._Young_Thug_Official_Audio', '00:04:03', 'HP'),
+(null, 'Wait for U', 7, 'Future_-_WAIT_FOR_U_Official_Music_Video_ft._Drake_Tems', '00:04:03', 'HP'),
+(null, 'Shape of you', 8, 'Ed_Sheeran_-_Shape_of_You_Official_Video', '00:04:03', 'HP'),
+(null, 'Perfect', 8, 'Ed_Sheeran_-_Perfect_Official_Music_Video', '00:04:03', 'HP'),
+(null, 'Watermelon Sugar', 9, 'Harry_Styles_-_Watermelon_Sugar_Official_Video', '00:04:03', 'HP'),
+(null, 'As it was', 9, 'Harry_Styles_-_As_It_Was_Lyrics', '00:04:03', 'HP'),
+(null, 'Love Yourself', 10, 'Justin_Bieber_-_Love_Yourself_PURPOSE_The_Movement', '00:04:03', 'HP'),
+(null, 'Believer', 11, 'Imagine Dragons - Believer', '00:04:03', 'HP'),
+(null, 'Enemy', 11, 'Imagine Dragons x J.I.D - Enemy (Lyrics)', '00:04:03', 'HP'),
+(null, 'Shotta Flow', 12, 'NLE_Choppa_-_Shotta_Flow_Remix_ft._Blueface_Dir._by__ColeBennett_', '00:04:03', 'HP');
 
 insert into p_playlist values
 (null, 'Nikis Playlist', 2),
