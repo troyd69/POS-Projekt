@@ -31,7 +31,7 @@
                         <TextBlock Text="Artists" FontWeight="Bold" HorizontalAlignment="Center"/>
                     </Grid>
 
-                    <ListBox Grid.Row="1" Background="SeaShell" ItemsSource="{Binding AllArtists}"/>
+                    <ListBox Grid.Row="1" Background="SeaShell" ItemsSource="{Binding AllArtists}" SelectedItem="{Binding SelArtist}"/>
                 </Grid>
             </Border>
 
@@ -59,17 +59,17 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button HorizontalAlignment="Left" Content="Select a File" Command="{Binding SelectFile}" Margin="5, 0, 5, 10" FontWeight="Bold" Background="SandyBrown"/>
                                 <Border BorderThickness="2" Margin="5, 0, 5, 10" BorderBrush="Black" Width="310" CornerRadius="5">
-                                    <TextBox FontSize="15" Height="22" HorizontalAlignment="Left" Width="310" BorderBrush="Transparent" Text="First Name:" VerticalAlignment="Top" Background="Transparent">
-                                        <TextBox.Resources>
+                                    <TextBlock FontSize="15" Height="22" HorizontalAlignment="Left" Width="310" Text="{Binding FileName}" VerticalAlignment="Top" Background="Transparent">
+                                        <TextBlock.Resources>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="CornerRadius" Value="4"/>
                                             </Style>
-                                        </TextBox.Resources>
-                                    </TextBox>
+                                        </TextBlock.Resources>
+                                    </TextBlock>
                                 </Border>
 
                             </StackPanel>
-                            <Button Content="Add Song" Margin="5, 10, 5, 0"  Height="30" FontWeight="Bold" Background="SandyBrown"/>
+                            <Button Content="Add Song" Command="{Binding AddSong}" Margin="5, 10, 5, 0"  Height="30" FontWeight="Bold" Background="SandyBrown"/>
 
                         </StackPanel>
                     </Border>

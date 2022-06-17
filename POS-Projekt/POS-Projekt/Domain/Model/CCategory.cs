@@ -14,5 +14,11 @@ namespace Backend.Model
         public string CName { get; set; } = null!;
 
         public virtual ICollection<SSong> SSongs { get; set; }
+
+
+        public override string ToString()
+        {
+            return CName;
+        }
     }
 }

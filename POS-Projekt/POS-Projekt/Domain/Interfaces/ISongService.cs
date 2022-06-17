@@ -11,6 +11,6 @@ namespace Backend.Domain.Interfaces
 	{
 		List<SSong> ListSongs();
 		List<SSong> GetSongsfromPlaylist(PPlaylist playlist);
-		SSong AddSong(string titel, string cat, string pfad);
+		SSong AddSong(string titel, CCategory cat, string pfad, AArtist artist);
 	}
 }

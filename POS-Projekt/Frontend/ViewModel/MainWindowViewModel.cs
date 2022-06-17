@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Frontend.ViewModel
 {
@@ -40,7 +41,6 @@ namespace Frontend.ViewModel
 		private string anmeldenUsernameTB;
 
 		private string registrierenUsernameTB;
-
 		private DateOnly registrierenDate;
 
 		private List<SSong> songsVonPlaylist;
@@ -77,9 +77,12 @@ namespace Frontend.ViewModel
 
 		private SSong selAddSongsEditPL;
 
-		private SSong playedSong;
 
 		private SSong selSongAllSongsEditPL;
+
+		private AArtist selArtist;
+
+		OpenFileDialog dialog = new OpenFileDialog();
 
 
 
@@ -131,6 +134,8 @@ namespace Frontend.ViewModel
 
 		public ICommand SelectFile { get; }
 
+		public ICommand AddSong { get; }
+
 
 
 
@@ -148,6 +153,8 @@ namespace Frontend.ViewModel
 			SongsVonPlaylist = _songService.ListSongs();
 			AllCategories = _categoryService.ListCategorys();
 			SelCategory = AllCategories[0];
+
+			player.MediaEnded += MediaEnded;
 
 
 			//var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -318,6 +325,7 @@ namespace Frontend.ViewModel
 					  if (SelNameEditPL != null)
 						  _playlistService.ChangePlayList(SelNameEditPL, AddSongsEditPL.ToList(), SelPlaylist.PId);
 				  PlaylistsVonUser = _playlistService.PlayListvonUser(SelUser.UId);
+				  SongsVonPlaylist = _songService.GetSongsfromPlaylist(SelPlaylist);
 				  ActiveMenu = "MainPage";
 			  },
 			  () => SelAddSongsEditPL != null); 
@@ -372,22 +380,41 @@ namespace Frontend.ViewModel
 			   () =>
 			   {
 
-				   var dialog = new Microsoft.Win32.OpenFileDialog();
-				   dialog.FileName = "Document"; // Default file name
+
+				   dialog.FileName = "Song.mp3"; // Default file name
 				   dialog.DefaultExt = ".txt"; // Default file extension
-				   dialog.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+				   dialog.Filter = "(.mp3)|*.mp3"; // Filter files by extension
 
 				   // Show open file dialog box
-				   bool? result = dialog.ShowDialog();
-
-				   // Process open file dialog box results
-				   if (result == true)
+				   bool? myResult;
+				   myResult = dialog.ShowDialog();
+				   if (myResult != null && myResult == true)
 				   {
-					   // Open document
-					   string filename = dialog.FileName;
+
+					   if (!Directory.Exists("music"))
+					   {
+						   Directory.CreateDirectory("music");
+					   }
+
+					   FileName = dialog.SafeFileName.Substring(0, (dialog.SafeFileName.Length - 4));
 				   }
 			   },
 			   () => true);
+
+			AddSong = new RelayCommand(
+			   () =>
+			   {
+
+				   string filePath = CurrentDirectory + $@"\music\" + Path.GetFileName(FileName) + ".mp3";
+				   File.Copy(dialog.FileName, filePath, true);
+				   _songService.AddSong(SongNameTB, SelCategory, FileName, SelArtist);
+				   SongsVonPlaylist = _songService.ListSongs();
+				   ActiveMenu = "MainPage";
+			   },
+			   () => SelCategory != null &&
+						!String.IsNullOrEmpty(FileName) &&
+						!String.IsNullOrEmpty(songNameTB) &&
+						SelArtist != null);
 		}
 
 		string _activeMenu = "Anmelden";
@@ -465,9 +492,10 @@ namespace Frontend.ViewModel
 			get => selPlaylist;
 			set
 			{
-				selPlaylist = value;
-				if (selPlaylist != null)
+				
+				if (value != null)
 				{
+					selPlaylist = value;
 					SongsVonPlaylist = _songService.GetSongsfromPlaylist(SelPlaylist);
 					AddSongsEditPL = new(_songService.GetSongsfromPlaylist(SelPlaylist));
 				}
@@ -626,5 +654,25 @@ namespace Frontend.ViewModel
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelAddSongsEditPL)));
 			}
 		}
-	}
+
+        public AArtist SelArtist
+		{
+			get => selArtist;
+			set
+			{
+				selArtist = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelArtist)));
+			}
+		}
+
+		public void MediaEnded(object sender, EventArgs e)
+        {
+			int index = SongsVonPlaylist.IndexOf(SelSong);
+
+			if (index < (SongsVonPlaylist.Count - 1))
+				SelSong = SongsVonPlaylist[++index];
+			else
+				SelSong = SongsVonPlaylist[0];
+		}
+    }
 }
