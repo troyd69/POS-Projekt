@@ -41,7 +41,7 @@ namespace Frontend.ViewModel
 		private string anmeldenUsernameTB;
 
 		private string registrierenUsernameTB;
-		private DateOnly registrierenDate;
+		private DateTime registrierenDate = DateTime.Now;
 
 		private List<SSong> songsVonPlaylist;
 
@@ -83,6 +83,8 @@ namespace Frontend.ViewModel
 		private AArtist selArtist;
 
 		OpenFileDialog dialog = new OpenFileDialog();
+
+		private string imgSource;
 
 
 
@@ -154,8 +156,10 @@ namespace Frontend.ViewModel
 			AllCategories = _categoryService.ListCategorys();
 			SelCategory = AllCategories[0];
 
-			player.MediaEnded += MediaEnded;
+			this.ImgSource = "/imgs/pause.png";
 
+			player.MediaEnded += MediaEnded;
+			
 
 			//var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             //Console.WriteLine(CurrentDirectory);
@@ -203,7 +207,7 @@ namespace Frontend.ViewModel
 				   var passwordbox = param as PasswordBox;
 				   var password = passwordbox.Password;
 
-				   UUser temp = _userService.Registrieren(RegistrierenUsernameTB, password, RegistrierenDate);
+				   UUser temp = _userService.Registrieren(RegistrierenUsernameTB, password, DateOnly.FromDateTime(RegistrierenDate));
 
 				   if (temp == null)
 					   return;
@@ -229,9 +233,17 @@ namespace Frontend.ViewModel
 			   {
 
 				   if (isPlaying)
+                   {
 					   player.Pause();
+					   ImgSource = "/imgs/play.png";
+				   }
+					   
 				   else
+                   {
 					   player.Play();
+					   ImgSource = "/imgs/pause.png";
+				   }
+					   
 
 				   isPlaying = !isPlaying;
 			   },
@@ -251,6 +263,10 @@ namespace Frontend.ViewModel
 					   SelSong = SongsVonPlaylist[SongsVonPlaylist.Count - 1];
 
 				   
+					   player.Play();
+					   ImgSource = "/imgs/pause.png";
+				   
+
 			   },
 			   () => SelSong != null);
 
@@ -263,6 +279,9 @@ namespace Frontend.ViewModel
 					   SelSong = SongsVonPlaylist[++index];
 				   else
 					   SelSong = SongsVonPlaylist[0];
+
+				   player.Play();
+				   ImgSource = "/imgs/pause.png";
 			   },
 			   () => SelSong != null);
 
@@ -273,7 +292,7 @@ namespace Frontend.ViewModel
 				  AddSongsCreatePL = new();
 				  ActiveMenu = "CreatePlayList";
 			  },
-			  () => ActiveMenu != "Anmelden");
+			  () => ActiveMenu != "Anmelden" && SelPlaylist != null);
 
 			AddSongCreatePlayList = new RelayCommand(
 			   () =>
@@ -314,6 +333,7 @@ namespace Frontend.ViewModel
 					  if (SelNameCreatePL != null)
 						  _playlistService.AddPlayList(SelNameCreatePL, SelUser.UId, AddSongsCreatePL.ToList());
 				  PlaylistsVonUser = _playlistService.PlayListvonUser(SelUser.UId);
+				  SelNameCreatePL = "";
 				  ActiveMenu = "MainPage";
 			  },
 			  () => SelAddSongsCreatePL != null);
@@ -335,21 +355,11 @@ namespace Frontend.ViewModel
 			   {
 				   AddSongsEditPL = new(_songService.GetSongsfromPlaylist(SelPlaylist));
 				   AllSongs = _songService.ListSongs();//-----------------------------------------------------------
-				   try
-				   {
-					   SelNameEditPL = SelPlaylist.PName;
-					   if (SelPlaylist != null)
-					   {
-						   ActiveMenu = "EditPlayList";
-					   }
-				   }
-				   catch (Exception ex)
-				   { 
-				   
-				   }
+				   ActiveMenu = "EditPlayList";
+				   SelNameEditPL = SelPlaylist.PName;
 				   
 			   },
-			   () => ActiveMenu != "Anmelden");
+			   () => ActiveMenu != "Anmelden" && SelPlaylist != null);
 
 			MainPageAddNewSongMenuItem = new RelayCommand(
 			   () =>
@@ -370,7 +380,6 @@ namespace Frontend.ViewModel
 			LogOutBtn = new RelayCommand(
 			   () =>
 			   {
-
 				   ActiveMenu = "Anmelden";
 			   },
 			   () => ActiveMenu != "Anmelden");
@@ -458,7 +467,7 @@ namespace Frontend.ViewModel
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RegistrierenUsernameTB)));
 			}
 		}
-		public DateOnly RegistrierenDate
+		public DateTime RegistrierenDate
 		{
 			get => registrierenDate;
 			set
@@ -665,7 +674,17 @@ namespace Frontend.ViewModel
 			}
 		}
 
-		public void MediaEnded(object sender, EventArgs e)
+        public string ImgSource
+		{
+			get => imgSource;
+			set
+			{
+				imgSource = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ImgSource)));
+			}
+		}
+
+        public void MediaEnded(object sender, EventArgs e)
         {
 			int index = SongsVonPlaylist.IndexOf(SelSong);
 

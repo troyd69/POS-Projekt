@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Remove="imgs\next.png" />
     <None Remove="imgs\pause.png" />
+    <None Remove="imgs\play.png" />
     <None Remove="imgs\previous.png" />
   </ItemGroup>
 
@@ -24,6 +25,9 @@
   <ItemGroup>
     <Resource Include="imgs\next.png" />
     <Resource Include="imgs\pause.png" />
+    <Resource Include="imgs\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="imgs\previous.png" />
   </ItemGroup>
 

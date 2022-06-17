@@ -124,7 +124,8 @@ insert into a_artist values
 (null, 'David Guetta'),
 (null, 'Lil Peep'),
 (null, 'Travis Scott'),
-(null, 'Drake');
+(null, 'Drake'),
+(null, 'Dat Adam');
          
 insert into c_category values
 ('HP', 'Hip-Hop'),
@@ -168,3 +169,6 @@ where u_username like 'Nikii';
 
 select *
 from p_playlist;
+
+select *
+from s_song;
