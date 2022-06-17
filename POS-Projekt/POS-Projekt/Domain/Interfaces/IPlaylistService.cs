@@ -11,7 +11,7 @@ namespace Backend.Domain.Interfaces
 	{
 		List<PPlaylist> PlayListvonUser(int user);
 		PPlaylist AddPlayList(string name, int user, List<SSong> songs);
-		PPlaylist ChangePlayList(string name, List<SSong> songs, PPlaylist playlist);
+		PPlaylist ChangePlayList(string name, List<SSong> songs, int playlist);
 
 	}
 }

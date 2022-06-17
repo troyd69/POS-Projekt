@@ -40,12 +40,16 @@ namespace Backend.Services
 			return b;
 		}
 
-		public PPlaylist ChangePlayList(string name, List<SSong> songs, PPlaylist playlist)
+		public PPlaylist ChangePlayList(string name, List<SSong> songs, int playlist)
 		{
-			playlist.PName = name;
-			playlist.ISSongs = songs;
+			(from a in _dbContext.PPlaylists
+			 where a.PId == playlist
+			 select a).ToList().ForEach(x=> { 
+				x.PName=name;
+				 x.ISSongs = songs;
+			 });
 			_dbContext.SaveChanges();
-			return playlist;
+			return null;
 		}
 
 		public List<PPlaylist> PlayListvonUser(int user)

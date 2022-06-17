@@ -316,7 +316,7 @@ namespace Frontend.ViewModel
 			  {
 				  if (AddSongsEditPL.Count > 0)
 					  if (SelNameEditPL != null)
-						  _playlistService.ChangePlayList(SelNameEditPL, AddSongsEditPL.ToList(), SelPlaylist);
+						  _playlistService.ChangePlayList(SelNameEditPL, AddSongsEditPL.ToList(), SelPlaylist.PId);
 				  PlaylistsVonUser = _playlistService.PlayListvonUser(SelUser.UId);
 				  ActiveMenu = "MainPage";
 			  },
@@ -327,11 +327,19 @@ namespace Frontend.ViewModel
 			   {
 				   AddSongsEditPL = new(_songService.GetSongsfromPlaylist(SelPlaylist));
 				   AllSongs = _songService.ListSongs();//-----------------------------------------------------------
-				   SelNameEditPL = SelPlaylist.PName;
-				   if (SelPlaylist != null)
+				   try
 				   {
-					   ActiveMenu = "EditPlayList";
+					   SelNameEditPL = SelPlaylist.PName;
+					   if (SelPlaylist != null)
+					   {
+						   ActiveMenu = "EditPlayList";
+					   }
 				   }
+				   catch (Exception ex)
+				   { 
+				   
+				   }
+				   
 			   },
 			   () => ActiveMenu != "Anmelden");
 
